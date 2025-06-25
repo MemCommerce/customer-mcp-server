@@ -48,7 +48,7 @@ async def list_hole_storefront_data() -> Union[StorefrontData, CallToolResult]:
                     - size/size_id: Size option and its ID
                     - color/color_id: Color option and its ID
                     - price: Current price for this specific variant
-        
+
         On error, returns CallToolResult with error details if the MemCommerce API
         request fails or if there are connectivity issues.
     """
@@ -59,5 +59,5 @@ async def list_hole_storefront_data() -> Union[StorefrontData, CallToolResult]:
             isError=True,
             content=[TextContent(type="text", text=f"MemCommerce API Error: {e}")],
         )
-    
+
     return storefront_data
