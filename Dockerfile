@@ -10,4 +10,4 @@ RUN uv sync --locked
 
 EXPOSE 8080
 
-CMD ["uv", "run", "./src/admin_mcp_server/main.py"]
+CMD ["uv", "run", "./src/customer_mcp_server/main.py"]
