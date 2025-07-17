@@ -53,7 +53,7 @@ async def list_user_orders(user_jwt: str) -> Union[OrderListData, CallToolResult
     except MemCommerceAPIException as e:
         return CallToolResult(
             isError=True,
-            content=[TextContent(type="text", text=f"MemCommerce API Error: {e}")]
+            content=[TextContent(type="text", text=f"MemCommerce API Error: {e}")],
         )
 
     return orders_data

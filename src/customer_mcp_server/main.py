@@ -1,9 +1,10 @@
 from modular_mcp.modular_mcp import ModularFastMCP
-from bundles import storefront_bundle, order_bundle
+from bundles import storefront_bundle, order_bundle, return_bundle
 
 mcp = ModularFastMCP("MemCommerce Customer MCP server")
 mcp.include_bundle(storefront_bundle.bundle)
 mcp.include_bundle(order_bundle.bundle)
+mcp.include_bundle(return_bundle.bundle)
 
 
 def main():
