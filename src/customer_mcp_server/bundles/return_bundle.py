@@ -63,3 +63,47 @@ async def create_user_return(
         )
 
     return return_data
+
+
+@bundle.tool()
+async def list_all_user_returns(
+    user_jwt: str,
+) -> Union[list[ReturnData], CallToolResult]:
+    """
+    Retrieve all return requests submitted by the user.
+
+    This function fetches all return requests associated with the provided user JWT token.
+    Each return includes information about the return reason, order, status, and the
+    items being returned. It is useful for allowing users to view their return history
+    within the system.
+
+    Args:
+        user_jwt (str): JSON Web Token (JWT) for authenticating the user making the request.
+
+    Returns:
+        Union[list[ReturnData], CallToolResult]: A list of ReturnData objects, where each ReturnData contains:
+            - return_request (Return): Metadata for the return request, including:
+                - id (str): Unique identifier for the return request.
+                - status (str): Status of the return (e.g., "pending", "approved").
+                - reason (str): Reason for the return.
+                - order_id (str): ID of the associated order.
+                - user_id (str): ID of the user who submitted the return.
+            - items (list[ReturnItem]): List of items associated with the return, where each item includes:
+                - id (str): Unique identifier for the returned item.
+                - quantity (int): Quantity being returned.
+                - reason (str | None): Optional item-specific reason for return.
+                - order_item_id (str): ID of the original order item.
+                - return_id (str): ID of the parent return request.
+
+        On error, returns CallToolResult with error details if the MemCommerce API
+        request fails or if there are connectivity/authentication issues.
+    """
+    try:
+        returns_datas = await get_user_returns(user_jwt)
+    except MemCommerceAPIException as e:
+        return CallToolResult(
+            isError=True,
+            content=[TextContent(type="text", text=f"MemCommerce API Error: {e}")],
+        )
+
+    return returns_datas
