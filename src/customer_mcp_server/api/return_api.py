@@ -15,6 +15,6 @@ async def post_user_return(data: ReturnDataCreate, user_jwt: str) -> ReturnData:
     url = f"{API_URL}/returns/"
     headers = {"Authorization": f"Bearer {user_jwt}"}
     body = data.model_dump()
-    returns_resp = await safe_request("GET", url, headers=headers, json=body)
+    returns_resp = await safe_request("POST", url, headers=headers, json=body)
     return_data = ReturnData(**returns_resp)
     return return_data
