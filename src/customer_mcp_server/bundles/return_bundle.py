@@ -1,6 +1,5 @@
 from typing import Union
 
-
 from modular_mcp.bundle import Bundle
 from mcp.types import CallToolResult, TextContent
 
